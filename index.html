@@ -4,225 +4,301 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>VTN Container Management</title>
-        <style>
+    <style>
+        /* =======================================
+           PROFESSIONAL DESIGN SYSTEM
+           ======================================= */
+        
+        :root {
+            /* Primary Colors - Deep tech blue palette */
+            --primary: #00a8ff;
+            --primary-dark: #00cc99;
+            --secondary: #00ffd0;
+            --accent: #00ffaa;
+            
+            /* Background - Deep space gradient */
+            --bg-dark: #0a0f1c;
+            --bg-darker: #070b14;
+            --bg-light: #121a2e;
+            
+            /* Text - Improved contrast */
+            --text-primary: #f0f7ff;
+            --text-secondary: #a0b8d0;
+            --text-tertiary: #6d7f99;
+            
+            /* Glass effect - More subtle */
+            --glass-bg: rgba(0, 25, 50, 0.4);
+            --glass-border: rgba(0, 168, 255, 0.15);
+            --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            
+            /* Status */
+            --success: #00ff88;
+            --warning: #ffcc00;
+            --danger: #ff4d7d;
+            
+            /* Spacing - Professional scale */
+            --space-xs: 0.5rem;
+            --space-sm: 1rem;
+            --space-md: 1.5rem;
+            --space-lg: 2rem;
+            --space-xl: 3rem;
+            --space-xxl: 4rem;
+            
+            /* Typography */
+            --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+            
+            /* Shadows - Hierarchical elevation */
+            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.2);
+            --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.3);
+            --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.4);
+            --shadow-glow: 0 0 24px rgba(0, 168, 255, 0.3);
+            
+            /* Transitions - Smooth and purposeful */
+            --transition-fast: 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-medium: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-slow: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* =======================================
+           GLOBAL STYLES
+           ======================================= */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-        }
-
-        :root {
-            --primary: #00a8ff;
-            --secondary: #00ffd0;
-            --accent: #00ffaa;
-            --dark: #0a1929;
-            --darker: #051423;
-            --light: #e6f7ff;
-            --gray: #a0d2ff;
-            --success: #00ff88;
-            --warning: #ffcc00;
-            --danger: #ff4d7d;
-            --glass: rgba(0, 168, 255, 0.08);
-            --glass-border: rgba(0, 255, 208, 0.1);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
 
         body {
-            font-family: 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background: linear-gradient(135deg, var(--darker), var(--dark));
-            color: var(--light);
+            font-family: var(--font-sans);
+            background: radial-gradient(ellipse at 20% 50%, var(--bg-darker) 0%, var(--bg-dark) 50%, #000 100%);
+            color: var(--text-primary);
             line-height: 1.6;
             min-height: 100vh;
-            background-attachment: fixed;
-            background-size: 400% 400%;
-            animation: gradientBG 15s ease infinite;
+            overflow-x: hidden;
         }
 
-        @keyframes gradientBG {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
+        /* Background grid pattern - Subtle tech aesthetic */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image: 
+                linear-gradient(rgba(0, 168, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 168, 255, 0.03) 1px, transparent 1px);
+            background-size: 2.5rem 2.5rem;
+            pointer-events: none;
+            z-index: -1;
         }
 
+        /* =======================================
+           LAYOUT COMPONENTS
+           ======================================= */
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 20px;
+            padding: 0 var(--space-lg);
         }
 
         header {
-            background: var(--glass);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border-bottom: 1px solid var(--glass-border);
-            color: var(--light);
-            padding: 25px 0;
-            margin-bottom: 40px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-            position: relative;
-            overflow: hidden;
-        }
-
-        header::before {
-            content: '';
-            position: absolute;
+            position: sticky;
             top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle at top right, rgba(0, 168, 255, 0.1), transparent 70%);
-            pointer-events: none;
+            z-index: 100;
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px) saturate(1.8);
+            -webkit-backdrop-filter: blur(20px) saturate(1.8);
+            border-bottom: 1px solid var(--glass-border);
+            padding: var(--space-md) 0;
+            box-shadow: var(--shadow-md);
         }
 
-        header h1 {
-            font-size: 2.5rem;
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+        }
+
+        .logo {
+            width: 2.5rem;
+            height: 2.5rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 0.75rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             font-weight: 700;
-            text-align: center;
-            margin-bottom: 10px;
-            position: relative;
-            z-index: 1;
+            font-size: 1.2rem;
+            color: var(--bg-darker);
+            box-shadow: var(--shadow-sm);
+        }
+
+        h1 {
+            font-size: 1.75rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
             background: linear-gradient(to right, var(--primary), var(--secondary));
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
-            letter-spacing: -0.5px;
         }
 
         .subtitle {
-            text-align: center;
-            color: var(--gray);
-            font-size: 1.1rem;
-            font-weight: 300;
-            position: relative;
-            z-index: 1;
+            font-size: 0.875rem;
+            color: var(--text-tertiary);
+            margin-top: 0.25rem;
         }
 
+        main {
+            padding: var(--space-xxl) 0;
+        }
+
+        /* =======================================
+           BUTTONS - Liquid Glass Magnification Effect
+           ======================================= */
         .button-grid {
             display: grid;
-            grid-template-columns: 1fr;
-            gap: 25px;
-            margin-top: 50px;
-            max-width: 500px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        @media (min-width: 768px) {
-            .button-grid {
-                grid-template-columns: 1fr 1fr;
-            }
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--space-lg);
+            margin: var(--space-xxxl) 0;
         }
 
         .btn {
-            background: var(--glass);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            color: var(--light);
-            padding: 25px 30px;
-            border: 1px solid var(--glass-border);
-            border-radius: 16px;
-            font-size: 1.2rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
             position: relative;
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            width: 100%;
+            padding: var(--space-lg) var(--space-xl);
+            border: 1px solid var(--glass-border);
+            border-radius: 1rem;
+            font-family: var(--font-sans);
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            cursor: pointer;
+            transition: var(--transition-medium);
+            text-decoration: none;
             overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-            z-index: 1;
+            box-shadow: var(--shadow-sm);
+            background: linear-gradient(135deg, rgba(0, 168, 255, 0.15), rgba(0, 255, 208, 0.1));
         }
 
-        .btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, rgba(0, 168, 255, 0.3), rgba(0, 255, 208, 0.2));
-            z-index: -1;
-            opacity: 0;
-            transition: opacity 0.3s ease;
+        .btn-secondary {
+            background: linear-gradient(135deg, rgba(0, 255, 208, 0.15), rgba(0, 168, 255, 0.1));
+        }
+
+        /* Content wrapper for magnification effect */
+        .btn-content {
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            transition: var(--transition-medium);
+            transform-origin: center;
+            will-change: transform, filter;
+        }
+
+        .btn:hover .btn-content {
+            transform: scale(1.05);
+            filter: blur(0.5px) brightness(1.1);
+        }
+
+        .btn:active .btn-content {
+            transform: scale(0.98);
+            filter: blur(0);
+        }
+
+        .btn-icon {
+            font-size: 1.5rem;
+            transition: var(--transition-medium);
+        }
+
+        .btn:hover .btn-icon {
+            transform: scale(1.1);
         }
 
         .btn:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 25px rgba(0, 168, 255, 0.3);
             border-color: rgba(0, 255, 208, 0.3);
-        }
-
-        .btn:hover::before {
-            opacity: 1;
+            box-shadow: var(--shadow-glow);
         }
 
         .btn:active {
             transform: translateY(0);
         }
 
-        .btn-secondary {
-            background: var(--glass);
-        }
-
-        .btn-secondary::before {
-            background: linear-gradient(135deg, rgba(0, 255, 208, 0.3), rgba(0, 168, 255, 0.2));
-        }
-
-        .page {
-            display: none;
-            animation: fadeIn 0.4s ease;
-        }
-
-        .page.active {
-            display: block;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
+        /* =======================================
+           CARDS - Elevated glassmorphism
+           ======================================= */
         .card {
-            background: var(--glass);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
+            background: var(--glass-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
             border: 1px solid var(--glass-border);
-            border-radius: 16px;
-            padding: 30px;
-            margin-bottom: 30px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
-            transition: transform 0.3s ease;
+            border-radius: 1.5rem;
+            padding: var(--space-xl);
+            margin-bottom: var(--space-xl);
+            box-shadow: var(--shadow-lg);
+            transition: var(--transition-medium);
         }
 
         .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 25px rgba(0, 168, 255, 0.2);
+            transform: translateY(-0.25rem);
+            box-shadow: var(--shadow-glow);
         }
 
+        .card-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: var(--space-lg);
+            padding-bottom: var(--space-md);
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .card-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            letter-spacing: -0.01em;
+        }
+
+        /* =======================================
+           FORMS - Polished input experience
+           ======================================= */
         .form-group {
-            margin-bottom: 25px;
+            margin-bottom: var(--space-lg);
         }
 
         label {
             display: block;
-            margin-bottom: 10px;
-            font-weight: 500;
-            color: var(--gray);
-            font-size: 0.95rem;
+            margin-bottom: var(--space-sm);
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
         }
 
         input[type="text"],
         input[type="number"],
         textarea {
             width: 100%;
-            padding: 14px;
-            background: rgba(0, 0, 0, 0.2);
+            padding: var(--space-md);
+            background: rgba(0, 0, 0, 0.3);
             border: 1px solid var(--glass-border);
-            border-radius: 8px;
+            border-radius: 0.75rem;
+            font-family: var(--font-sans);
             font-size: 1rem;
-            transition: all 0.3s ease;
-            color: var(--light);
-            font-family: inherit;
+            color: var(--text-primary);
+            transition: var(--transition-fast);
         }
 
         input[type="text"]:focus,
@@ -236,424 +312,413 @@
         textarea {
             resize: vertical;
             min-height: 120px;
+            font-family: var(--font-mono);
+            font-size: 0.875rem;
         }
 
-        .job-numbers-list {
-            background: rgba(0, 0, 0, 0.2);
-            border: 1px solid var(--glass-border);
-            border-radius: 8px;
-            padding: 15px;
-            margin-top: 15px;
-            max-height: 300px;
-            overflow-y: auto;
+        textarea::placeholder {
+            color: var(--text-tertiary);
         }
 
-        .job-number-item {
-            background: var(--glass);
-            padding: 12px 15px;
-            margin-bottom: 10px;
-            border-radius: 8px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            transition: all 0.2s ease;
-            border: 1px solid var(--glass-border);
+        /* VTN Prefix styling */
+        .vtn-prefix {
+            color: var(--primary);
+            font-weight: 700;
+            pointer-events: none;
         }
 
-        .job-number-item:hover {
-            background: rgba(0, 168, 255, 0.1);
-            transform: translateX(5px);
-        }
-
-        .job-number-item:last-child {
-            margin-bottom: 0;
-        }
-
-        .delete-btn {
-            background: rgba(255, 77, 125, 0.2);
-            color: var(--danger);
-            border: 1px solid rgba(255, 77, 125, 0.3);
-            padding: 6px 12px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 0.8rem;
-            font-weight: 500;
-            transition: all 0.2s ease;
-        }
-
-        .delete-btn:hover {
-            background: rgba(255, 77, 125, 0.3);
-            transform: scale(1.05);
-        }
-
-        .back-btn {
-            background: var(--glass);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            color: var(--gray);
-            border: 1px solid var(--glass-border);
-            padding: 12px 24px;
-            border-radius: 8px;
-            cursor: pointer;
-            margin-bottom: 25px;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            transition: all 0.3s ease;
-            font-weight: 500;
-        }
-
-        .back-btn:hover {
-            background: rgba(0, 168, 255, 0.1);
-            color: var(--light);
-            transform: translateX(-5px);
-        }
-
+        /* =======================================
+           VTN DISPLAY - Premium visual treatment
+           ======================================= */
         .vtn-display {
-            font-size: 2.2rem;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--space-md);
+            font-family: var(--font-mono);
+            font-size: 2.5rem;
             font-weight: 700;
             color: var(--primary);
             text-align: center;
-            margin: 25px 0;
-            padding: 25px;
-            background: var(--glass);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
+            padding: var(--space-xl);
+            margin: var(--space-xl) 0;
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
             border: 1px solid var(--glass-border);
-            border-radius: 12px;
-            letter-spacing: 1px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-        }
-
-        .search-container {
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        .search-results {
-            margin-top: 25px;
-        }
-
-        .error-message {
-            background: rgba(255, 77, 125, 0.15);
-            color: var(--danger);
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 25px;
-            display: none;
-            border: 1px solid rgba(255, 77, 125, 0.2);
-            backdrop-filter: blur(5px);
-        }
-
-        .success-message {
-            background: rgba(0, 255, 136, 0.15);
-            color: var(--success);
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 25px;
-            display: none;
-            border: 1px solid rgba(0, 255, 136, 0.2);
-            backdrop-filter: blur(5px);
-        }
-
-        .loading {
-            display: inline-block;
-            width: 24px;
-            height: 24px;
-            border: 3px solid var(--glass-border);
-            border-top: 3px solid var(--primary);
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-            margin-left: 10px;
-            vertical-align: middle;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        .stats {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-            margin-bottom: 30px;
-        }
-
-        .stat-card {
-            background: var(--glass);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            padding: 25px 20px;
-            border-radius: 12px;
-            text-align: center;
-            border: 1px solid var(--glass-border);
-            transition: all 0.3s ease;
-        }
-
-        .stat-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 20px rgba(0, 168, 255, 0.15);
-        }
-
-        .stat-number {
-            font-size: 2.2rem;
-            font-weight: 700;
-            color: var(--secondary);
-            margin-bottom: 5px;
-        }
-
-        .stat-label {
-            color: var(--gray);
-            font-size: 0.9rem;
-            font-weight: 500;
-        }
-
-        /* Mobile optimizations */
-        @media (max-width: 768px) {
-            header h1 {
-                font-size: 2rem;
-            }
-            
-            .btn {
-                font-size: 1rem;
-                padding: 20px;
-            }
-            
-            .card {
-                padding: 20px;
-            }
-            
-            .vtn-display {
-                font-size: 1.5rem;
-                padding: 20px;
-            }
-        }
-
-        /* Touch-friendly improvements */
-        @media (hover: none) {
-            .btn:hover {
-                transform: none;
-            }
-            
-            .btn:active {
-                transform: scale(0.98);
-            }
-        }
-
-        /* Smooth scrolling */
-        html {
-            scroll-behavior: smooth;
-        }
-
-        /* Focus visible for accessibility */
-        .btn:focus-visible,
-        input:focus-visible,
-        textarea:focus-visible {
-            outline: 3px solid rgba(0, 168, 255, 0.5);
-            outline-offset: 2px;
-        }
-
-        /* High contrast mode support */
-        @media (prefers-contrast: high) {
-            :root {
-                --primary: #00a8ff;
-                --secondary: #00ffd0;
-                --accent: #00ffaa;
-                --dark: #000000;
-                --darker: #000000;
-                --light: #ffffff;
-                --gray: #a0d2ff;
-            }
-            
-            .card,
-            .btn,
-            .stat-card,
-            .job-number-item {
-                border-width: 2px;
-            }
-        }
-
-        /* Reduced motion support */
-        @media (prefers-reduced-motion: reduce) {
-            * {
-                animation-duration: 0.01ms !important;
-                animation-iteration-count: 1 !important;
-                transition-duration: 0.01ms !important;
-            }
-            
-            html {
-                scroll-behavior: auto;
-            }
-            
-            body {
-                animation: none;
-            }
-        }
-
-        /* Print styles */
-        @media print {
-            header {
-                background: none;
-                color: #000;
-            }
-            
-            .btn,
-            .back-btn,
-            .delete-btn {
-                display: none;
-            }
-            
-            .card {
-                border: 1px solid #000;
-                page-break-inside: avoid;
-            }
-            
-            body {
-                background: #fff;
-                color: #000;
-            }
-        }
-
-        /* Dark mode enhancement */
-        @media (prefers-color-scheme: dark) {
-            :root {
-                --dark: #0a1929;
-                --darker: #051423;
-                --light: #e6f7ff;
-                --gray: #a0d2ff;
-            }
-        }
-
-        /* Additional hover effects */
-        .stat-card:hover .stat-number {
-            color: var(--accent);
-            transform: scale(1.05);
-        }
-
-        .job-number-item {
-            transition: all 0.3s ease;
-        }
-
-        .job-number-item:hover {
-            border-color: var(--primary);
-            box-shadow: 0 0 15px rgba(0, 168, 255, 0.1);
-        }
-
-        .btn-secondary {
-            position: relative;
+            border-radius: 1.25rem;
+            box-shadow: var(--shadow-md);
             overflow: hidden;
         }
 
-        .btn-secondary::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(0, 255, 208, 0.2), transparent);
-            transition: 0.5s;
-        }
-
-        .btn-secondary:hover::after {
-            left: 100%;
-        }
-
-        /* New container button gradient effect */
-        .btn-primary {
-            position: relative;
-            overflow: hidden;
-        }
-
-        .btn-primary::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            z-index: -1;
-            opacity: 0;
-            transition: opacity 0.4s ease;
-        }
-
-        .btn-primary:hover::before {
-            opacity: 0.3;
-        }
-
-        .btn-primary:hover {
-            border-color: var(--secondary);
-            box-shadow: 0 0 20px rgba(0, 255, 208, 0.2);
-        }
-
-        /* Add subtle glow to VTN display */
-        .vtn-display {
-            position: relative;
-            overflow: hidden;
-        }
-
-        .vtn-display::after {
+        .vtn-display::before {
             content: '';
             position: absolute;
             top: -50%;
             left: -50%;
             width: 200%;
             height: 200%;
-            background: radial-gradient(circle, rgba(0, 168, 255, 0.1), transparent 70%);
-            animation: pulse 4s ease infinite;
-            z-index: -1;
+            background: radial-gradient(circle, rgba(0, 168, 255, 0.1), transparent 60%);
+            animation: pulse 4s ease-in-out infinite;
+        }
+
+        .vtn-display > * {
+            position: relative;
+            z-index: 1;
+        }
+
+        .vtn-label {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .loading {
+            display: inline-block;
+            width: 1.5rem;
+            height: 1.5rem;
+            border: 2px solid var(--glass-border);
+            border-top: 2px solid var(--primary);
+            border-radius: 50%;
+            animation: spin 0.8s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+        }
+
+        /* =======================================
+           JOB LIST - Enhanced list design
+           ======================================= */
+        .job-numbers-list {
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px solid var(--glass-border);
+            border-radius: 1rem;
+            padding: var(--space-md);
+            margin-top: var(--space-md);
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .job-number-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: var(--space-md) var(--space-lg);
+            margin-bottom: var(--space-sm);
+            background: var(--glass-bg);
+            backdrop-filter: blur(8px);
+            border: 1px solid var(--glass-border);
+            border-radius: 0.75rem;
+            transition: var(--transition-medium);
+        }
+
+        .job-number-item:hover {
+            border-color: var(--primary);
+            transform: translateX(0.5rem);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .job-number-text {
+            font-family: var(--font-mono);
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .delete-btn {
+            padding: var(--space-xs) var(--space-sm);
+            background: rgba(255, 77, 125, 0.1);
+            color: var(--danger);
+            border: 1px solid rgba(255, 77, 125, 0.2);
+            border-radius: 0.5rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition-fast);
+        }
+
+        .delete-btn:hover {
+            background: rgba(255, 77, 125, 0.2);
+            transform: scale(1.05);
+        }
+
+        /* =======================================
+           STATS - Dashboard metrics
+           ======================================= */
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--space-lg);
+            margin: var(--space-xxl) 0;
+        }
+
+        .stat-card {
+            position: relative;
+            padding: var(--space-lg);
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            border-radius: 1rem;
+            text-align: center;
+            transition: var(--transition-medium);
+            overflow: hidden;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-0.5rem);
+            box-shadow: var(--shadow-glow);
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: var(--space-xs);
+            line-height: 1;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .stat-label {
+            font-size: 0.875rem;
+            color: var(--text-tertiary);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        /* =======================================
+           ALERTS - Professional notification system
+           ======================================= */
+        .error-message, .success-message {
+            padding: var(--space-md) var(--space-lg);
+            margin-bottom: var(--space-lg);
+            border-radius: 0.75rem;
+            font-size: 0.875rem;
+            font-weight: 600;
+            backdrop-filter: blur(10px);
+            animation: slideInDown var(--transition-medium);
+        }
+
+        .error-message {
+            background: rgba(255, 77, 125, 0.1);
+            border: 1px solid rgba(255, 77, 125, 0.3);
+            color: var(--danger);
+        }
+
+        .success-message {
+            background: rgba(0, 255, 136, 0.1);
+            border: 1px solid rgba(0, 255, 136, 0.3);
+            color: var(--success);
+        }
+
+        @keyframes slideInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-1rem);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* =======================================
+           ANIMATIONS
+           ======================================= */
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
 
         @keyframes pulse {
-            0% { opacity: 0.3; transform: scale(0.8); }
-            50% { opacity: 0.6; transform: scale(1.1); }
-            100% { opacity: 0.3; transform: scale(0.8); }
+            0%, 100% { 
+                opacity: 0.3; 
+                transform: scale(0.8) rotate(0deg); 
+            }
+            50% { 
+                opacity: 0.6; 
+                transform: scale(1.2) rotate(180deg); 
+            }
         }
 
-        /* Add glow effect to buttons on hover */
-        .btn:hover {
-            box-shadow: 0 0 15px rgba(0, 168, 255, 0.3);
+        /* =======================================
+           RESPONSIVE - Fluid design
+           ======================================= */
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 var(--space-md);
+            }
+            
+            header {
+                padding: var(--space-sm) 0;
+            }
+            
+            .header-content {
+                flex-direction: column;
+                gap: var(--space-sm);
+            }
+            
+            h1 {
+                font-size: 1.5rem;
+            }
+            
+            .button-grid {
+                grid-template-columns: 1fr;
+                gap: var(--space-md);
+            }
+            
+            .btn {
+                padding: var(--space-md);
+                font-size: 1rem;
+            }
+            
+            .vtn-display {
+                font-size: 2rem;
+                padding: var(--space-lg);
+            }
+            
+            .stat-card {
+                padding: var(--space-md);
+            }
+            
+            .stat-number {
+                font-size: 2rem;
+            }
         }
 
-        /* Style the search input with glowing focus */
-        input[type="text"]:focus,
-        input[type="number"]:focus,
-        textarea:focus {
+        /* =======================================
+           UTILITY - Micro-interactions
+           ======================================= */
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-xs);
+            padding: var(--space-sm) var(--space-md);
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 0.75rem;
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition-fast);
+            margin-bottom: var(--space-lg);
+        }
+
+        .back-btn:hover {
+            color: var(--text-primary);
             border-color: var(--primary);
-            box-shadow: 0 0 10px rgba(0, 168, 255, 0.3);
+            transform: translateX(-0.25rem);
+        }
+
+        .page {
+            display: none;
+            animation: fadeIn var(--transition-medium);
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(1rem); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* =======================================
+           SCROLLBAR - Polished UX
+           ======================================= */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--glass-border);
+            border-radius: 4px;
+            border: 2px solid transparent;
+            background-clip: content-box;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--primary);
+        }
+
+        /* =======================================
+           VALIDATION STYLES
+           ======================================= */
+        .input-error {
+            border-color: var(--danger) !important;
+            box-shadow: 0 0 0 3px rgba(255, 77, 125, 0.2) !important;
         }
     </style>
 </head>
 <body>
     <header>
         <div class="container">
-            <h1>VTN Container Management</h1>
-            <p class="subtitle">Track and manage your containers efficiently</p>
+            <div class="header-content">
+                <div class="logo-section">
+                    <div class="logo">VTN</div>
+                    <div>
+                        <h1>Container Management</h1>
+                        <p class="subtitle">Track and manage containers efficiently</p>
+                    </div>
+                </div>
+            </div>
         </div>
     </header>
 
     <main class="container">
         <!-- Home Page -->
         <div id="home-page" class="page active">
-            <div class="button-grid">
-                <button class="btn btn-primary" onclick="showPage('new-container-page')">
-                    <span>📦</span> Start Building New Container
-                </button>
-                <button class="btn btn-secondary" onclick="showPage('search-page')">
-                    <span>🔍</span> Search Container by VTN
-                </button>
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">Quick Actions</h2>
+                </div>
+                <div class="button-grid">
+                    <button class="btn btn-primary" onclick="showPage('new-container-page')">
+                        <div class="btn-content">
+                            <span class="btn-icon">📦</span>
+                            <span>Create New Container</span>
+                        </div>
+                    </button>
+                    <button class="btn btn-secondary" onclick="showPage('search-page')">
+                        <div class="btn-content">
+                            <span class="btn-icon">🔍</span>
+                            <span>Search Container</span>
+                        </div>
+                    </button>
+                </div>
             </div>
 
-            <div class="stats">
-                <div class="stat-card">
-                    <div class="stat-number" id="total-containers">0</div>
-                    <div class="stat-label">Total Containers</div>
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">System Overview</h2>
                 </div>
-                <div class="stat-card">
-                    <div class="stat-number" id="total-jobs">0</div>
-                    <div class="stat-label">Total Jobs</div>
+                <div class="stats">
+                    <div class="stat-card">
+                        <div class="stat-number" id="total-containers">0</div>
+                        <div class="stat-label">Active Containers</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="total-jobs">0</div>
+                        <div class="stat-label">Total Jobs</div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -661,27 +726,33 @@
         <!-- New Container Page -->
         <div id="new-container-page" class="page">
             <button class="back-btn" onclick="showPage('home-page')">
-                <span>←</span> Back to Home
+                <span>←</span> Back to Dashboard
             </button>
 
             <div class="card">
-                <h2>Create New Container</h2>
+                <div class="card-header">
+                    <h2 class="card-title">Create New Container</h2>
+                </div>
                 
                 <div class="error-message" id="new-container-error"></div>
                 <div class="success-message" id="new-container-success"></div>
 
                 <div class="vtn-display" id="new-vtn-number">
-                    Generating VTN...
+                    <span class="vtn-label">Next VTN</span>
+                    <span id="vtn-value">Generating...</span>
                     <span class="loading"></span>
                 </div>
 
                 <div class="form-group">
-                    <label for="job-numbers-input">Enter Job Numbers (one per line or comma-separated)</label>
-                    <textarea id="job-numbers-input" placeholder="e.g.&#10;JOB-001&#10;JOB-002&#10;JOB-003"></textarea>
+                    <label for="job-numbers-input">Job Numbers</label>
+                    <textarea id="job-numbers-input" placeholder="Enter one job number per line...&#10;&#10;001&#10;002&#10;003"></textarea>
                 </div>
 
                 <button class="btn btn-primary" onclick="createContainer()">
-                    Create Container
+                    <div class="btn-content">
+                        <span class="btn-icon">✓</span>
+                        <span>Create Container</span>
+                    </div>
                 </button>
             </div>
         </div>
@@ -689,35 +760,41 @@
         <!-- Search Page -->
         <div id="search-page" class="page">
             <button class="back-btn" onclick="showPage('home-page')">
-                <span>←</span> Back to Home
+                <span>←</span> Back to Dashboard
             </button>
 
             <div class="card search-container">
-                <h2>Search Container</h2>
+                <div class="card-header">
+                    <h2 class="card-title">Search Container</h2>
+                </div>
                 
                 <div class="error-message" id="search-error"></div>
                 <div class="success-message" id="search-success"></div>
 
-                <div class="form-group">
-                    <label for="search-vtn-input">Enter VTN Number</label>
-                    <input type="text" id="search-vtn-input" placeholder="e.g. VTN-1" oninput="searchContainer()">
+                <div class="form-group" style="position: relative;">
+                    <label for="search-vtn-input">VTN Number</label>
+                    <div style="position: relative; display: flex; align-items: center;">
+                        <span class="vtn-prefix" id="vtn-prefix" style="position: absolute; left: var(--space-md); pointer-events: none; z-index: 1;">VTN-</span>
+                        <input type="text" id="search-vtn-input" placeholder="1" style="padding-left: 4rem;" oninput="searchContainer()">
+                    </div>
                 </div>
 
                 <div class="search-results" id="search-results" style="display: none;">
                     <div class="vtn-display" id="found-vtn-number"></div>
                     
                     <div class="form-group">
-                        <label>Add New Job Numbers</label>
-                        <textarea id="additional-jobs-input" placeholder="Enter new job numbers..."></textarea>
-                        <button class="btn btn-primary" onclick="addJobsToContainer()" style="margin-top: 10px;">
-                            Add Jobs
+                        <label>Add More Jobs</label>
+                        <textarea id="additional-jobs-input" placeholder="Enter additional job numbers..."></textarea>
+                        <button class="btn btn-primary" onclick="addJobsToContainer()" style="margin-top: var(--space-md);">
+                            <div class="btn-content">
+                                <span class="btn-icon">➕</span>
+                                <span>Add Jobs</span>
+                            </div>
                         </button>
                     </div>
 
-                    <h3 style="margin-top: 30px; margin-bottom: 15px;">Jobs in this Container</h3>
-                    <div class="job-numbers-list" id="container-jobs-list">
-                        <!-- Jobs will be listed here -->
-                    </div>
+                    <h3 style="margin: var(--space-xl) 0 var(--space-md); font-size: 1.125rem; color: var(--text-secondary);">Jobs in Container</h3>
+                    <div class="job-numbers-list" id="container-jobs-list"></div>
                 </div>
             </div>
         </div>
@@ -725,9 +802,9 @@
 
     <script>
         // Cloudflare Workers API endpoints
-        const API_BASE ='https://vtn-api.ibc-tracking.workers.dev';
+        const API_BASE = 'https://vtn-api.ibc-tracking.workers.dev';
         const API_KEY = 'VTN_SecureKey_2024_KC';
-        
+
         // Initialize the app
         document.addEventListener('DOMContentLoaded', function() {
             updateStats();
@@ -735,62 +812,49 @@
 
         // Navigation function
         function showPage(pageId) {
-            // Hide all pages
             document.querySelectorAll('.page').forEach(page => {
                 page.classList.remove('active');
             });
-            
-            // Show selected page
             document.getElementById(pageId).classList.add('active');
-            
-            // Clear messages and reset forms
             clearMessages();
             
-            // Handle page-specific logic
             if (pageId === 'new-container-page') {
                 generateNextVTN();
             } else if (pageId === 'search-page') {
-                document.getElementById('search-vtn-input').value = '';
+                const searchInput = document.getElementById('search-vtn-input');
+                searchInput.value = '';
                 document.getElementById('search-results').style.display = 'none';
             }
         }
 
-        // Clear all messages
         function clearMessages() {
             document.querySelectorAll('.error-message').forEach(msg => msg.style.display = 'none');
             document.querySelectorAll('.success-message').forEach(msg => msg.style.display = 'none');
         }
 
-        // Show error message
         function showError(elementId, message) {
             const errorElement = document.getElementById(elementId);
             errorElement.textContent = message;
             errorElement.style.display = 'block';
-            setTimeout(() => {
-                errorElement.style.display = 'none';
-            }, 5000);
+            setTimeout(() => { errorElement.style.display = 'none'; }, 5000);
         }
 
-        // Show success message
         function showSuccess(elementId, message) {
             const successElement = document.getElementById(elementId);
             successElement.textContent = message;
             successElement.style.display = 'block';
-            setTimeout(() => {
-                successElement.style.display = 'none';
-            }, 3000);
+            setTimeout(() => { successElement.style.display = 'none'; }, 3000);
         }
 
-        // Generate next VTN number
         async function generateNextVTN() {
             const vtnDisplay = document.getElementById('new-vtn-number');
-            vtnDisplay.innerHTML = 'Generating VTN... <span class="loading"></span>';
+            const vtnValue = document.getElementById('vtn-value');
+            vtnValue.textContent = 'Generating...';
             
             try {
                 const response = await fetch(`${API_BASE}/api/vtns`);
                 const data = await response.json();
                 
-                // Find the highest VTN number
                 let maxNumber = 0;
                 data.forEach(container => {
                     const match = container.vtn.match(/VTN-(\d+)/);
@@ -801,22 +865,21 @@
                 });
                 
                 const nextVTN = `VTN-${maxNumber + 1}`;
-                vtnDisplay.textContent = nextVTN;
+                vtnValue.textContent = nextVTN;
             } catch (error) {
-                showError('new-container-error', 'Failed to generate VTN number. Please try again.');
-                vtnDisplay.textContent = 'Error generating VTN';
+                showError('new-container-error', 'Failed to generate VTN number.');
+                vtnValue.textContent = 'Error';
             }
         }
 
-        // Parse job numbers from input
+        // Parse job numbers from input (only numbers)
         function parseJobNumbers(input) {
-            // Split by newlines or commas
-            const jobNumbers = input.split(/[\n,]/).map(job => job.trim()).filter(job => job.length > 0);
-            // Remove duplicates
-            return [...new Set(jobNumbers)];
+            return [...new Set(input.split(/[\n,]/).map(job => {
+                const cleaned = job.trim().replace(/\D/g, '');
+                return cleaned.length > 0 ? cleaned : null;
+            }).filter(job => job !== null))];
         }
 
-        // Create new container
         async function createContainer() {
             const vtn = document.getElementById('new-vtn-number').textContent;
             const jobNumbersInput = document.getElementById('job-numbers-input').value;
@@ -829,8 +892,7 @@
             const jobNumbers = parseJobNumbers(jobNumbersInput);
             
             try {
-                // Create container
-                const containerResponse = await fetch(`${API_BASE}/api/vtns`, {
+                const response = await fetch(`${API_BASE}/api/vtns`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -843,15 +905,11 @@
                     })
                 });
                 
-                if (containerResponse.ok) {
-                    showSuccess('new-container-success', `Container ${vtn} created successfully with ${jobNumbers.length} jobs!`);
+                if (response.ok) {
+                    showSuccess('new-container-success', `Container ${vtn} created with ${jobNumbers.length} jobs!`);
                     document.getElementById('job-numbers-input').value = '';
                     updateStats();
-                    
-                    // Generate next VTN after a delay
-                    setTimeout(() => {
-                        generateNextVTN();
-                    }, 2000);
+                    setTimeout(() => generateNextVTN(), 2000);
                 } else {
                     throw new Error('Failed to create container');
                 }
@@ -860,17 +918,19 @@
             }
         }
 
-        // Search container
         async function searchContainer() {
-            const vtn = document.getElementById('search-vtn-input').value.trim();
+            const searchInput = document.getElementById('search-vtn-input');
+            const vtnNumber = searchInput.value.trim();
             
-            if (!vtn) {
+            if (!vtnNumber || vtnNumber === '') {
                 document.getElementById('search-results').style.display = 'none';
                 return;
             }
             
+            const fullVTN = `VTN-${vtnNumber}`;
+            
             try {
-                const response = await fetch(`${API_BASE}/api/vtns/${encodeURIComponent(vtn)}`);
+                const response = await fetch(`${API_BASE}/api/vtns/${encodeURIComponent(fullVTN)}`);
                 
                 if (response.ok) {
                     const container = await response.json();
@@ -886,28 +946,19 @@
             }
         }
 
-        // Display container search results
         function displayContainerResults(container) {
             document.getElementById('found-vtn-number').textContent = container.vtn;
             document.getElementById('search-results').style.display = 'block';
-            
-            // Store current VTN for adding jobs
-            document.getElementById('search-results').dataset.currentVtn = container.vtn;
-            
-            // Clear additional jobs input
             document.getElementById('additional-jobs-input').value = '';
-            
-            // Display jobs
             displayJobsList(container.jobNumbers);
         }
 
-        // Display jobs list
         function displayJobsList(jobNumbers) {
             const jobsList = document.getElementById('container-jobs-list');
             jobsList.innerHTML = '';
             
             if (jobNumbers.length === 0) {
-                jobsList.innerHTML = '<p style="text-align: center; color: #718096;">No jobs in this container</p>';
+                jobsList.innerHTML = '<p style="text-align: center; color: var(--text-tertiary);">No jobs in this container</p>';
                 return;
             }
             
@@ -915,14 +966,13 @@
                 const jobItem = document.createElement('div');
                 jobItem.className = 'job-number-item';
                 jobItem.innerHTML = `
-                    <span>${job}</span>
+                    <span class="job-number-text">${job}</span>
                     <button class="delete-btn" onclick="deleteJob('${job}')">Delete</button>
                 `;
                 jobsList.appendChild(jobItem);
             });
         }
 
-        // Add jobs to existing container
         async function addJobsToContainer() {
             const vtn = document.getElementById('search-results').dataset.currentVtn;
             const additionalJobsInput = document.getElementById('additional-jobs-input').value;
@@ -960,11 +1010,10 @@
             }
         }
 
-        // Delete job from container
         async function deleteJob(jobNumber) {
             const vtn = document.getElementById('search-results').dataset.currentVtn;
             
-            if (!confirm(`Are you sure you want to delete job ${jobNumber}?`)) {
+            if (!confirm(`Are you sure you want to delete job ${jobNumber} from ${vtn}?`)) {
                 return;
             }
             
@@ -972,7 +1021,7 @@
                 const response = await fetch(`${API_BASE}/api/vtns/${encodeURIComponent(vtn)}/jobs/${encodeURIComponent(jobNumber)}`, {
                     method: 'DELETE',
                     headers: {
-                    'X-API-Key': API_KEY
+                        'X-API-Key': API_KEY
                     }
                 });
                 
@@ -989,38 +1038,100 @@
             }
         }
 
-        // Update statistics
         async function updateStats() {
             try {
                 const response = await fetch(`${API_BASE}/api/stats`);
                 const stats = await response.json();
                 
-                document.getElementById('total-containers').textContent = stats.totalContainers;
-                document.getElementById('total-jobs').textContent = stats.totalJobs;
+                document.getElementById('total-containers').textContent = stats.totalContainers || 0;
+                document.getElementById('total-jobs').textContent = stats.totalJobs || 0;
             } catch (error) {
                 console.error('Failed to update stats:', error);
             }
         }
 
-        // Enter key support for search
+        // Input validation for job numbers (only digits, commas, newlines)
+        function setupJobNumberValidation() {
+            const jobInputs = ['job-numbers-input', 'additional-jobs-input'];
+            
+            jobInputs.forEach(id => {
+                const input = document.getElementById(id);
+                if (input) {
+                    input.addEventListener('input', function(e) {
+                        // Remove any non-digit, non-comma, non-newline characters
+                        const sanitized = this.value.replace(/[^0-9,\n]/g, '');
+                        if (this.value !== sanitized) {
+                            this.value = sanitized;
+                            // Add visual feedback
+                            this.classList.add('input-error');
+                            setTimeout(() => this.classList.remove('input-error'), 500);
+                        }
+                    });
+                    
+                    // Prevent paste of invalid characters
+                    input.addEventListener('paste', function(e) {
+                        const paste = (e.clipboardData || window.clipboardData).getData('text');
+                        const sanitized = paste.replace(/[^0-9,\n]/g, '');
+                        if (paste !== sanitized) {
+                            e.preventDefault();
+                            const start = this.selectionStart;
+                            const end = this.selectionEnd;
+                            this.value = this.value.substring(0, start) + sanitized + this.value.substring(end);
+                            this.setSelectionRange(start + sanitized.length, start + sanitized.length);
+                            this.classList.add('input-error');
+                            setTimeout(() => this.classList.remove('input-error'), 500);
+                        }
+                    });
+                }
+            });
+        }
+
+        // Setup VTN prefix protection
+        function setupVTNPrefix() {
+            const searchInput = document.getElementById('search-vtn-input');
+            const prefix = 'VTN-';
+            
+            searchInput.addEventListener('keydown', function(e) {
+                const cursorPos = this.selectionStart;
+                
+                // Prevent backspace/delete of prefix
+                if ((e.key === 'Backspace' && cursorPos <= 4) || 
+                    (e.key === 'Delete' && cursorPos < 4)) {
+                    e.preventDefault();
+                    return;
+                }
+            });
+            
+            searchInput.addEventListener('input', function(e) {
+                // If user tries to delete the prefix, restore it
+                if (!this.value.startsWith(prefix) && this.value.length < 4) {
+                    this.value = prefix;
+                }
+                // If field is empty, restore prefix
+                else if (this.value === '') {
+                    this.value = prefix;
+                }
+            });
+            
+            // Set initial value
+            searchInput.value = prefix;
+            searchInput.setSelectionRange(4, 4); // Place cursor after prefix
+        }
+
+        // Initialize on load
+        document.addEventListener('DOMContentLoaded', function() {
+            setupJobNumberValidation();
+            setupVTNPrefix();
+            updateStats();
+        });
+
+        // Keyboard shortcuts
         document.getElementById('search-vtn-input').addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                searchContainer();
-            }
+            if (e.key === 'Enter') searchContainer();
         });
 
-        // Prevent form submission on Enter key in textarea
-        document.getElementById('job-numbers-input').addEventListener('keypress', function(e) {
-            if (e.key === 'Enter' && !e.shiftKey) {
-                e.preventDefault();
-            }
-        });
-
-        document.getElementById('additional-jobs-input').addEventListener('keypress', function(e) {
-            if (e.key === 'Enter' && !e.shiftKey) {
-                e.preventDefault();
-            }
-        });
+        // Auto-reload stats every 30 seconds
+        setInterval(updateStats, 30000);
     </script>
 </body>
 </html>
