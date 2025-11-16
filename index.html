@@ -802,7 +802,7 @@
 
     <script>
         // Cloudflare Workers API endpoints
-        const API_BASE = 'https://vtn-api.ibc-tracking.workers.dev';
+        const API_BASE = 'https://vtn-api.ibc-tracking.workers.dev ';
         const API_KEY = 'VTN_SecureKey_2024_KC';
 
         // Initialize the app
@@ -1086,42 +1086,41 @@
             });
         }
 
-        // Setup VTN prefix protection
-        function setupVTNPrefix() {
+        // Setup numeric-only validation for VTN search input
+        function setupVTNSearchValidation() {
             const searchInput = document.getElementById('search-vtn-input');
-            const prefix = 'VTN-';
-            
-            searchInput.addEventListener('keydown', function(e) {
-                const cursorPos = this.selectionStart;
-                
-                // Prevent backspace/delete of prefix
-                if ((e.key === 'Backspace' && cursorPos <= 4) || 
-                    (e.key === 'Delete' && cursorPos < 4)) {
-                    e.preventDefault();
-                    return;
-                }
-            });
             
             searchInput.addEventListener('input', function(e) {
-                // If user tries to delete the prefix, restore it
-                if (!this.value.startsWith(prefix) && this.value.length < 4) {
-                    this.value = prefix;
-                }
-                // If field is empty, restore prefix
-                else if (this.value === '') {
-                    this.value = prefix;
+                // Remove any non-digit characters
+                const sanitized = this.value.replace(/\D/g, '');
+                if (this.value !== sanitized) {
+                    this.value = sanitized;
+                    // Add visual feedback
+                    this.classList.add('input-error');
+                    setTimeout(() => this.classList.remove('input-error'), 500);
                 }
             });
             
-            // Set initial value
-            searchInput.value = prefix;
-            searchInput.setSelectionRange(4, 4); // Place cursor after prefix
+            // Prevent paste of invalid characters
+            searchInput.addEventListener('paste', function(e) {
+                const paste = (e.clipboardData || window.clipboardData).getData('text');
+                const sanitized = paste.replace(/\D/g, '');
+                if (paste !== sanitized) {
+                    e.preventDefault();
+                    const start = this.selectionStart;
+                    const end = this.selectionEnd;
+                    this.value = this.value.substring(0, start) + sanitized + this.value.substring(end);
+                    this.setSelectionRange(start + sanitized.length, start + sanitized.length);
+                    this.classList.add('input-error');
+                    setTimeout(() => this.classList.remove('input-error'), 500);
+                }
+            });
         }
 
         // Initialize on load
         document.addEventListener('DOMContentLoaded', function() {
             setupJobNumberValidation();
-            setupVTNPrefix();
+            setupVTNSearchValidation();
             updateStats();
         });
 
@@ -1130,7 +1129,7 @@
             if (e.key === 'Enter') searchContainer();
         });
 
-        // Auto-reload stats every 3 hours
+        // Auto-reload stats every 30 seconds
         setInterval(updateStats, 10800000);
     </script>
 </body>
